@@ -87,53 +87,22 @@ void solve()
         else if(i=='S') s++;
         else c++;
     }
-    ll int cost = b*pb+s*ps+c*pc;
-    ll int amount = 0;
-    if(b==0) nb=0;
-    if(c==0) nc=0;
-    if(s==0) ns=0;
-    for(int i=1;true;i++)
-    {
-        if(nb<b){
-            r-=(b-nb)*pb;
-            nb=0;
+    
+    ll int start = 0,end = 1e15;
+    ll int mid = start + (end-start)/2;
+    // ll int count=0;
+    while(start<end){
+        // count++;
+        mid = (end+start+1)/2;
+        ll int cost = max((ll)0 , b*mid - nb)*pb + max((ll)0 , s*mid - ns)*ps + max((ll)0, c*mid - nc)*pc;
+        if(r>=cost){
+            start = mid;
         }
         else{
-            nb-=b;
+            end = mid -1;
         }
-        if(ns<s){
-            r-=(s-ns)*ps;
-            ns=0;
-        }
-        else{
-            ns-=s;
-        }if(nc<c){
-            r-=(c-nc)*pc;
-            nc=0;
-            // cout<<nc<<endl;
-            // break;
-
-        }
-        else{
-            nc-=c;
-        }
-        if(r>0){
-            amount++;
-        }
-        else if(r==0){
-            amount++;
-            break;
-        }
-        else if(r<0) break;
-        if(nb==0&&ns==0&&nc==0)
-        {
-            amount+=r/cost;
-            break;
-        }
-        // else break;
     }
-    cout<<amount<<endl;
-
+    cout<<start<<endl;
 }
 
 int main()
